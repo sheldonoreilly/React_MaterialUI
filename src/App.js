@@ -13,7 +13,7 @@ export default class App extends Component {
 
 	searchObj = {
 		searchText: "",
-		amount: 16,
+		amount: 10,
 		apiUrl: "https://pixabay.com/api"
 	};
 
@@ -33,8 +33,9 @@ export default class App extends Component {
 			});
 	}
 
-	handleSettingsChange = e => {
-		this.searchObj.amount = 5;
+	handleSettingsChange = searchSettings => {
+		console.log("searchSettings:", searchSettings);
+		this.searchObj.amount = searchSettings.resultAmt;
 		this.fetchData();
 	};
 

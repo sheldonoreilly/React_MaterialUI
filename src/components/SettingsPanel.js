@@ -62,7 +62,8 @@ class DetailedExpansionPanel extends Component {
 	state = {
 		safe: true,
 		editor: false,
-		gray: false
+		gray: false,
+		resultAmt: 10
 	};
 
 	handleChange = name => event => {
@@ -72,6 +73,7 @@ class DetailedExpansionPanel extends Component {
 	saveClick = e => {
 		// console.log("Save has been clicked");
 		// console.log("this.state :", this.state);
+		this.state.resultAmt = 4;
 		this.props.settingsChange(this.state);
 	};
 
