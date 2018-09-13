@@ -3,6 +3,7 @@ import axios from "axios";
 import pixabayKey from "./config/keys";
 import SearchBar from "./components/SearchBar";
 import ImageViewer from "./components/ImageViewer";
+import SettingsPanel from "./components/SettingsPanel";
 
 export default class App extends Component {
 	state = {
@@ -33,6 +34,7 @@ export default class App extends Component {
 		return (
 			<div>
 				<SearchBar searchChange={this.handleSearchTermChange} />
+				<SettingsPanel />
 				<ImageViewer tileData={this.state.images} />
 			</div>
 		);
