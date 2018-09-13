@@ -4,25 +4,26 @@ import pixabayKey from "./config/keys";
 import SearchBar from "./components/SearchBar";
 import ImageViewer from "./components/ImageViewer";
 import SettingsPanel from "./components/SettingsPanel";
+import Paper from "@material-ui/core/Paper";
 
 export default class App extends Component {
 	state = {
-		searchText: "",
-		amount: 16,
-		apiUrl: "https://pixabay.com/api",
 		images: []
 	};
 
-	handleSettingsChange() {
-		console.log("Settings change");
-	}
+	searchObj = {
+		searchText: "",
+		amount: 16,
+		apiUrl: "https://pixabay.com/api"
+	};
 
-	handleSearchTermChange = e => {
+	fetchData() {
+		console.log("fetchData");
 		axios
 			.get(
-				`${this.state.apiUrl}/?key=${pixabayKey}&q=${
-					e.target.value
-				}&colors=grayscale&image_type=photo&per_page=${this.state.amount}`
+				`${this.searchObj.apiUrl}/?key=${pixabayKey}&q=${
+					this.searchObj.searchText
+				}&colors=grayscale&image_type=photo&per_page=${this.searchObj.amount}`
 			)
 			.then(res => {
 				this.setState({ images: res.data.hits });
@@ -30,6 +31,16 @@ export default class App extends Component {
 			.catch(err => {
 				console.log("@@@@@@@@@@@@@@@@@@@@@@err :", err);
 			});
+	}
+
+	handleSettingsChange = e => {
+		this.searchObj.amount = 5;
+		this.fetchData();
+	};
+
+	handleSearchTermChange = e => {
+		this.searchObj.searchText = e.target.value;
+		this.fetchData();
 	};
 
 	render() {
@@ -37,9 +48,11 @@ export default class App extends Component {
 
 		return (
 			<div>
-				<SearchBar searchChange={this.handleSearchTermChange} />
-				<SettingsPanel settingsChange={this.handleSettingsChange} />
-				<ImageViewer tileData={this.state.images} />
+				<Paper>
+					<SearchBar searchChange={this.handleSearchTermChange} />
+					<SettingsPanel settingsChange={this.handleSettingsChange} />
+					<ImageViewer tileData={this.state.images} />
+				</Paper>
 			</div>
 		);
 	}
