@@ -14,48 +14,24 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper
 	},
 	gridList: {
-		width: 500,
-		height: 450
+		width: "100%",
+		height: "100%"
 	},
 	subheader: {
 		width: "100%"
 	}
 });
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *     cols: 2,
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
 function ImageGridList(props) {
+	console.log("Grid render&&&&&&&&&&&&");
+
 	const { classes } = props;
-
-	const tile = {
-		img: "https://pixabay.com/get/ea33b70b2bf5093ed1584d05fb1d4796e37ee5d11bb90c4090f3c771a7ebb7b0dd_1280.jpg",
-		title: "I dont care, do you?"
-	};
-
-	const tileData = [tile];
-
 	return (
 		<div className={classes.root}>
-			<GridList cellHeight={160} className={classes.gridList} cols={3}>
-				{tileData.map(tile => (
-					<GridListTile key={tile.img} cols={tile.cols || 1}>
-						<img src={tile.img} alt={tile.title} />
+			<GridList cellHeight={200} className={classes.gridList} cols={3}>
+				{props.tileData.map(tile => (
+					<GridListTile key={tile.previewURL} cols={tile.cols || 1}>
+						<img src={tile.previewURL} alt="" />
 					</GridListTile>
 				))}
 			</GridList>

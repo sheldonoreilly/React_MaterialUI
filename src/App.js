@@ -15,26 +15,25 @@ export default class App extends Component {
 	handleSearchTermChange = e => {
 		axios
 			.get(
-				`${this.state.apiUrl}/?key=${pixabayKey}&q=${this.state.searchText}&image_type=photo&per_page=${
+				`${this.state.apiUrl}/?key=${pixabayKey}&q=${e.target.value}&image_type=photo&per_page=${
 					this.state.amount
 				}`
 			)
 			.then(res => {
-				console.log("res.data.hits:", res.data.hits);
 				this.setState({ images: res.data.hits });
 			})
 			.catch(err => {
-				console.log("err :", err);
+				console.log("@@@@@@@@@@@@@@@@@@@@@@err :", err);
 			});
 	};
 
 	render() {
-		const { classes } = this.props;
-		const { title, steps } = this.state;
+		console.log("render@@@@@@");
+
 		return (
 			<div>
 				<SearchBar searchChange={this.handleSearchTermChange} />
-				<ImageViewer />
+				<ImageViewer tileData={this.state.images} />
 			</div>
 		);
 	}
