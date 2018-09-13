@@ -8,7 +8,7 @@ import SettingsPanel from "./components/SettingsPanel";
 export default class App extends Component {
 	state = {
 		searchText: "",
-		amount: 15,
+		amount: 16,
 		apiUrl: "https://pixabay.com/api",
 		images: []
 	};
@@ -16,9 +16,9 @@ export default class App extends Component {
 	handleSearchTermChange = e => {
 		axios
 			.get(
-				`${this.state.apiUrl}/?key=${pixabayKey}&q=${e.target.value}&image_type=photo&per_page=${
-					this.state.amount
-				}`
+				`${this.state.apiUrl}/?key=${pixabayKey}&q=${
+					e.target.value
+				}&colors=grayscale&image_type=photo&per_page=${this.state.amount}`
 			)
 			.then(res => {
 				this.setState({ images: res.data.hits });
