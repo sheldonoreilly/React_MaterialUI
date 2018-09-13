@@ -21,6 +21,7 @@ import Select from "@material-ui/core/Select";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const styles = theme => ({
 	root: {
@@ -66,6 +67,12 @@ class DetailedExpansionPanel extends Component {
 
 	handleChange = name => event => {
 		this.setState({ [name]: event.target.checked });
+	};
+
+	saveClick = e => {
+		// console.log("Save has been clicked");
+		// console.log("this.state :", this.state);
+		this.props.settingsChange(this.state);
 	};
 
 	render() {
@@ -132,7 +139,7 @@ class DetailedExpansionPanel extends Component {
 					<Divider />
 					<ExpansionPanelActions>
 						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
+						<Button onClick={this.saveClick} size="small" color="primary">
 							Save
 						</Button>
 					</ExpansionPanelActions>

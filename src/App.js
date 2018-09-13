@@ -13,6 +13,10 @@ export default class App extends Component {
 		images: []
 	};
 
+	handleSettingsChange() {
+		console.log("Settings change");
+	}
+
 	handleSearchTermChange = e => {
 		axios
 			.get(
@@ -34,7 +38,7 @@ export default class App extends Component {
 		return (
 			<div>
 				<SearchBar searchChange={this.handleSearchTermChange} />
-				<SettingsPanel />
+				<SettingsPanel settingsChange={this.handleSettingsChange} />
 				<ImageViewer tileData={this.state.images} />
 			</div>
 		);
