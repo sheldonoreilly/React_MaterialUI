@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import pixabayKey from "./config/keys";
 import SearchBar from "./components/SearchBar";
+import ImageViewer from "./components/ImageViewer";
 
 export default class App extends Component {
 	state = {
@@ -30,7 +31,12 @@ export default class App extends Component {
 	render() {
 		const { classes } = this.props;
 		const { title, steps } = this.state;
-		return <SearchBar searchChange={this.handleSearchTermChange} />;
+		return (
+			<div>
+				<SearchBar searchChange={this.handleSearchTermChange} />
+				<ImageViewer />
+			</div>
+		);
 	}
 }
 
