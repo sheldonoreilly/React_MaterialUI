@@ -4,10 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import ZoomIn from "@material-ui/icons/ZoomIn";
-// import tileData from "./tileData";
 
 const styles = theme => ({
 	root: {
@@ -27,9 +25,8 @@ const styles = theme => ({
 });
 
 function ImageGridList(props) {
-	console.log("Grid render&&&&&&&&&&&&");
+	console.log("ImageGridList render");
 
-	console.log("props.tileData[0] :", props.tileData[0]);
 	const { classes } = props;
 	return (
 		<div className={classes.root}>

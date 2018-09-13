@@ -1,79 +1,55 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import Snackbar from "@material-ui/core/Snackbar";
 
 const styles = theme => ({
 	root: {
 		width: "100%"
 	},
-	//heading: {
-	// 	fontSize: theme.typography.pxToRem(15)
-	// },
-	// secondaryHeading: {
-	// 	fontSize: theme.typography.pxToRem(15),
-	// 	color: theme.palette.text.secondary
-	// },
-	// icon: {
-	// 	verticalAlign: "bottom",
-	// 	height: 20,
-	// 	width: 20
-	// },
 	details: {
 		alignItems: "center"
 	},
 	column: {
 		flexBasis: "25%"
 	}
-	// helper: {
-	// 	borderLeft: `2px solid ${theme.palette.divider}`,
-	// 	padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 2}px`
-	// }
-	// link: {
-	// 	color: theme.palette.primary.main,
-	// 	textDecoration: "none",
-	// 	"&:hover": {
-	// 		textDecoration: "underline"
-	// 	}
-	// }
 });
 
 class DetailedExpansionPanel extends Component {
-	state = {
-		safe: true,
-		editor: false,
-		gray: false,
-		resultAmt: 10
-	};
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			safe: this.props.settings.safeSearch,
+			editor: this.props.settings.editorsChoice,
+			gray: this.props.settings.grayScale,
+			resultAmt: this.props.settings.amount
+		};
+	}
 
 	handleChange = name => event => {
-		this.setState({ [name]: event.target.checked });
+		if (name === "resultAmt") {
+			this.setState({ [name]: event.target.value });
+		} else {
+			this.setState({ [name]: event.target.checked });
+		}
 	};
 
 	saveClick = e => {
-		// console.log("Save has been clicked");
-		// console.log("this.state :", this.state);
-		this.state.resultAmt = 4;
 		this.props.settingsChange(this.state);
 	};
 
@@ -124,8 +100,8 @@ class DetailedExpansionPanel extends Component {
 
 						<FormControl className={classes.formControl}>
 							<Select
-								value={10}
-								onChange={this.handleChange}
+								value={this.state.resultAmt}
+								onChange={this.handleChange("resultAmt")}
 								input={<Input name="age" id="age-helper" />}
 							>
 								<MenuItem value="{1}">

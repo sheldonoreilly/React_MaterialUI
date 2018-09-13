@@ -13,12 +13,14 @@ export default class App extends Component {
 
 	searchObj = {
 		searchText: "",
-		amount: 10,
-		apiUrl: "https://pixabay.com/api"
+		amount: 20,
+		apiUrl: "https://pixabay.com/api",
+		safeSearch: true,
+		grayScale: true,
+		editorsChoice: true
 	};
 
 	fetchData() {
-		console.log("fetchData");
 		axios
 			.get(
 				`${this.searchObj.apiUrl}/?key=${pixabayKey}&q=${
@@ -29,7 +31,7 @@ export default class App extends Component {
 				this.setState({ images: res.data.hits });
 			})
 			.catch(err => {
-				console.log("@@@@@@@@@@@@@@@@@@@@@@err :", err);
+				console.log("err :", err);
 			});
 	}
 
@@ -45,13 +47,11 @@ export default class App extends Component {
 	};
 
 	render() {
-		console.log("render@@@@@@");
-
 		return (
 			<div>
 				<Paper>
 					<SearchBar searchChange={this.handleSearchTermChange} />
-					<SettingsPanel settingsChange={this.handleSettingsChange} />
+					<SettingsPanel settings={this.searchObj} settingsChange={this.handleSettingsChange} />
 					<ImageViewer tileData={this.state.images} />
 				</Paper>
 			</div>
