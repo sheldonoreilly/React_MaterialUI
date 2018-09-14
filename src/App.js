@@ -16,17 +16,21 @@ export default class App extends Component {
 		amount: 20,
 		apiUrl: "https://pixabay.com/api",
 		safeSearch: true,
-		grayScale: true,
-		editorsChoice: true
+		grayScale: false,
+		editorsChoice: false
 	};
 
 	fetchData() {
+		const str = `${this.searchObj.apiUrl}/?key=${pixabayKey}&q=${this.searchObj.searchText}${
+			this.searchObj.grayScale ? "&colors=grayscale" : ""
+		}&safesearch=${this.searchObj.safeSearch}&editors_choice=${
+			this.searchObj.editorsChoice
+		}&image_type=photo&per_page=${this.searchObj.amount}`;
+
+		console.log(str);
+
 		axios
-			.get(
-				`${this.searchObj.apiUrl}/?key=${pixabayKey}&q=${
-					this.searchObj.searchText
-				}&colors=grayscale&image_type=photo&per_page=${this.searchObj.amount}`
-			)
+			.get(str)
 			.then(res => {
 				this.setState({ images: res.data.hits });
 			})
@@ -36,8 +40,12 @@ export default class App extends Component {
 	}
 
 	handleSettingsChange = searchSettings => {
-		console.log("searchSettings:", searchSettings);
+		// console.log("searchSettings:", searchSettings);
+		this.searchObj.safeSearch = searchSettings.safe;
+		this.searchObj.editorsChoice = searchSettings.editor;
+		this.searchObj.grayScale = searchSettings.gray;
 		this.searchObj.amount = searchSettings.resultAmt;
+
 		this.fetchData();
 	};
 

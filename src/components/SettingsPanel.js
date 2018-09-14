@@ -37,9 +37,23 @@ class DetailedExpansionPanel extends Component {
 			safe: this.props.settings.safeSearch,
 			editor: this.props.settings.editorsChoice,
 			gray: this.props.settings.grayScale,
-			resultAmt: this.props.settings.amount
+			resultAmt: this.props.settings.amount,
+			expanded: null
 		};
 	}
+
+	handlePanelChange = name => (event, expanded) => {
+		this.setState({
+			expanded: expanded ? name : false
+		});
+		//only interested if panel is 'closing' to cause a setstate in parent
+		if (expanded === false) {
+			console.log("state is", this.state);
+
+			//do the parent stuff
+			this.props.settingsChange(this.state);
+		}
+	};
 
 	handleChange = name => event => {
 		if (name === "resultAmt") {
@@ -49,15 +63,12 @@ class DetailedExpansionPanel extends Component {
 		}
 	};
 
-	saveClick = e => {
-		this.props.settingsChange(this.state);
-	};
-
 	render() {
 		const { classes } = this.props;
+		const { expanded } = this.state;
 		return (
 			<div className={classes.root}>
-				<ExpansionPanel>
+				<ExpansionPanel expanded={expanded === "panel1"} onChange={this.handlePanelChange("panel1")}>
 					<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Settings</Typography>
@@ -115,12 +126,6 @@ class DetailedExpansionPanel extends Component {
 						</FormControl>
 					</ExpansionPanelDetails>
 					<Divider />
-					<ExpansionPanelActions>
-						<Button size="small">Cancel</Button>
-						<Button onClick={this.saveClick} size="small" color="primary">
-							Save
-						</Button>
-					</ExpansionPanelActions>
 				</ExpansionPanel>
 			</div>
 		);
